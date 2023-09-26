@@ -1,0 +1,43 @@
+
+
+# Arquivos e diretórios padrão para .NET Core
+bin/
+obj/
+*.suo
+*.user
+*.userosscache
+*.sln.iml
+.vscode/
+.vs/
+.project
+*.pidb
+*.userprefs
+
+# Pacotes NuGet
+*.nuget.props
+*.paket
+paket-files/
+.paket/
+
+# Pasta de dependências npm
+node_modules/
+
+# Logs e caches
+logs/
+*.log
+*.cache
+
+# Configurações de IDE
+.idea/
+.vscode/
+
+# Arquivos de configuração
+*.suo
+*.user
+*.userosscache
+*.sln.iml
+
+# Outros
+.env
+Thumbs.db
+Desktop.ini
