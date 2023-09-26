@@ -1,18 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels;
-using OpenAI.Utilities.Embedding;
+﻿using Microsoft.AspNetCore.Mvc;
 using test.openAI.api.Models;
-using dotenv.net.Utilities;
-using static test.openAI.api.OpenAIResponse;
-using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Text;
 using test.openAI.api.Models.OutputChatGPTModel;
-using System.Runtime.InteropServices;
 
 namespace test.openAI.api.Controllers
 {
@@ -34,10 +24,9 @@ namespace test.openAI.api.Controllers
 
             DotNetEnv.Env.Load();
 
-                var question = new InputChatGPTModel(text.response);
+                var question = new InputChatGPTModel(text.userProposal);
                 Console.Write(text);
 
-// Console.WriteLine(question.ReadAsString());
                 var secretKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 
 
@@ -53,14 +42,14 @@ namespace test.openAI.api.Controllers
                 var completionResponse = await _httpClient.PostAsync("https://api.openai.com/v1/chat/completions", content);
 
 
-               var responseBody = await completionResponse.Content.ReadAsStringAsync();
-               var responseObject = JsonSerializer.Deserialize<OutputChatGPTModel>(responseBody, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-
-
-                return Ok(responseObject.choices.First().message.content);
+                var responseBody = await completionResponse.Content.ReadAsStringAsync();
+                var responseObject = JsonSerializer.Deserialize<OutputChatGPTModel>(responseBody, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+                
+                var chatAnswer = responseObject!.choices.First();
+                return Ok(value: chatAnswer.message.content);
 
             }
            

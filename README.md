@@ -19,7 +19,7 @@
   - Use the following body in your request:
       ```json
       {
-          "text": "Here will be your question for chatGPT to answer."
+          "userProposal": "Here will be your question for chatGPT to answer."
       }
 
 
