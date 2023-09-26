@@ -31,7 +31,6 @@ public class InputChatGPTModel
         max_tokens = 450;
     }
 
-    // public string Prompt { get; set; }
     public string model { get; set; }
     public List<Message> messages { get; set; }
     public double temperature { get; set; }
