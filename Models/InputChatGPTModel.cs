@@ -26,7 +26,7 @@ public class InputChatGPTModel
                 new Message { role = "system", content = "Não informe condições comerciais propostas." },
                 new Message { role = "system", content = "Não inclua comentários negativos ou ofensivos, seja do cliente ou de quem fez a anotação." },
                 new Message { role = "system", content = "Seja direto, com no máximo 4 linhas de resposta" },
-                new Message { role = "system", content = "Sempre que possível inclua emoji." }
+                new Message { role = "system", content = "Sempre que possível inclua emoji." }  
             };
         temperature = 1;
         max_tokens = 450;

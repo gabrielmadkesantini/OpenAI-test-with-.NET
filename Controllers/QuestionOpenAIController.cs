@@ -3,6 +3,9 @@ using test.openAI.api.Models;
 using System.Text.Json;
 using System.Text;
 using test.openAI.api.Models.OutputChatGPTModel;
+using System.Net;
+using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace test.openAI.api.Controllers
 {
@@ -15,7 +18,21 @@ namespace test.openAI.api.Controllers
 
         public QuestionOpenAIController(HttpClient httpClient)
         {
-            _httpClient = httpClient;
+
+            var proxy = new WebProxy();
+
+            Console.WriteLine(proxy.Credentials);
+         
+             var httpClientHandler = new HttpClientHandler
+             {
+                 Proxy = proxy,
+             };
+
+            //httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+
+
+            _httpClient = new HttpClient(httpClientHandler);
         }
 
         [HttpPost("question")]
