@@ -21,16 +21,11 @@ namespace test.openAI.api.Controllers
 
             var proxy = new WebProxy();
 
-            Console.WriteLine(proxy.Credentials);
          
              var httpClientHandler = new HttpClientHandler
              {
                  Proxy = proxy,
              };
-
-            //httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-
-
 
             _httpClient = new HttpClient(httpClientHandler);
         }
@@ -38,6 +33,10 @@ namespace test.openAI.api.Controllers
         [HttpPost("question")]
         public async Task<IActionResult> Post([FromBody] BodyRequest text)
         {
+            if(text.userProposal == "")
+            {
+                return BadRequest("You have not have a sentence to the chat answer.");
+            }
 
             DotNetEnv.Env.Load();
 
@@ -64,7 +63,11 @@ namespace test.openAI.api.Controllers
                     {
                         PropertyNameCaseInsensitive = true
                     });
-                
+
+                if (responseObject.create == 0) {
+                    return BadRequest(responseBody);
+                }    
+
                 var chatAnswer = responseObject!.choices.First();
                 return Ok(value: chatAnswer.message.content);
 
